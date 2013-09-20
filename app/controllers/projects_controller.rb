@@ -8,10 +8,6 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
   end
 
-  def new
-    @project = Project.new
-  end
-
   def edit
     @project = Project.find(params[:id])
   end
@@ -27,6 +23,10 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def new
+    @project = Project.new
+  end
+
   def create
     @project = Project.new(project_params)
     if @project.save
@@ -39,6 +39,12 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def destroy
+    @project = Project.find(params[:id])
+    @project.destroy
+    flash[:notice] = "Project has been destroyed."
+    redirect_to projects_path
+  end
   private
 
   def project_params
